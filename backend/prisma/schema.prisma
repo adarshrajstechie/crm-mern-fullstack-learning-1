@@ -1,0 +1,54 @@
+// ===============================================================================
+// SYNTAX DEFINITION & GUIDELINE: PRISMA SCHEMA DEFINITION
+// ===============================================================================
+// DEFINITION:
+// Prisma Schema defines your database connections, generators, and data models.
+// - datasource: Specifies database type (postgresql, mysql, sqlite) and URL.
+// - generator: Specifies code generation tools (e.g., Prisma Client for TypeScript).
+// - model: Defines a database table/structure, fields, data types, and constraints.
+// ===============================================================================
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Enum: A custom data type with a fixed set of allowed string values
+enum Role {
+  ADMIN
+  USER
+}
+
+// User Model (Maps to User Table in Database)
+model User {
+  id        String   @id @default(uuid()) // Primary Key using UUID
+  email     String   @unique              // Unique constraint
+  password  String                        // Hashed Password
+  name      String
+  role      Role     @default(USER)       // Default role assignment
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relationship: One User can manage many Customers
+  customers Customer[]
+}
+
+// Customer Model (Core CRM Contact)
+model Customer {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  phone     String
+  company   String?  // Optional field (nullable)
+  status    String   @default("LEAD") // LEAD, CONTACTED, PROSPECT, CLIENT
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Foreign Key Relationship to User
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
