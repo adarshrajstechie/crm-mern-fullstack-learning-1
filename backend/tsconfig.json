@@ -1,0 +1,33 @@
+/*
+===============================================================================
+SYNTAX DEFINITION & GUIDELINE: JSON (JavaScript Object Notation)
+===============================================================================
+DEFINITION:
+JSON is a lightweight data-interchange format. It uses key-value pairs and arrays.
+- Keys MUST be enclosed in double quotes ("key").
+- Values can be Strings, Numbers, Booleans (true/false), Arrays ([]), Objects ({}), or null.
+- JSON does NOT support functions or undefined.
+
+EXAMPLE:
+{
+  "name": "CRM System",
+  "version": 1,
+  "isActive": true
+}
+===============================================================================
+*/
+
+{
+  "compilerOptions": {
+    "target": "ES2022",                  /* Target ECMAScript version */
+    "module": "CommonJS",                /* Module code generation standard */
+    "moduleResolution": "node",          /* How Node locates modules */
+    "outDir": "./dist",                  /* Redirect output structure to dist folder */
+    "rootDir": "./src",                  /* Root directory of TypeScript input files */
+    "strict": true,                      /* Enable all strict type-checking options */
+    "esModuleInterop": true,             /* Enables emit interoperability between CommonJS and ES Modules */
+    "skipLibCheck": true,                /* Skip type checking of declaration files */
+    "forceConsistentCasingInFileNames": true /* Disallow inconsistently-cased references to the same file */
+  },
+  "include": ["src/**/*"]                 /* Specifying files to include in compilation */
+}
